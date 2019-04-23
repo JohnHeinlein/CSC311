@@ -1,1 +1,6 @@
-/notes
+notes/
+/*/cmake-build-*/CMake*
+/*/cmake-build-*/cmake*
+/*/cmake-build-*/Makefile
+/*/cmake-build-*/*.cbp
+/*/CMake*
