@@ -1,3 +1,0 @@
-/home/john/Documents/spring 2019/arch/Asgn04/cmake-build-release/CMakeFiles/rebuild_cache.dir
-/home/john/Documents/spring 2019/arch/Asgn04/cmake-build-release/CMakeFiles/Asgn04.dir
-/home/john/Documents/spring 2019/arch/Asgn04/cmake-build-release/CMakeFiles/edit_cache.dir
