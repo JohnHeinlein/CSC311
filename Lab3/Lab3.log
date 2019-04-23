@@ -1,0 +1,334 @@
+PC       = 4000a4
+EPC      = 0
+Cause    = 0
+BadVAddr = 0
+Status   = 3000ff10
+
+HI       = 0
+LO       = 0
+
+R0  [r0] = 0
+R1  [at] = 10010000
+R2  [v0] = a
+R3  [v1] = 0
+R4  [a0] = 10010056
+R5  [a1] = 7ffffa74
+R6  [a2] = 7ffffa80
+R7  [a3] = 0
+R8  [t0] = 0
+R9  [t1] = 0
+R10 [t2] = 0
+R11 [t3] = 0
+R12 [t4] = 0
+R13 [t5] = 0
+R14 [t6] = 0
+R15 [t7] = 0
+R16 [s0] = 400148
+R17 [s1] = 400110
+R18 [s2] = 0
+R19 [s3] = 0
+R20 [s4] = 0
+R21 [s5] = 0
+R22 [s6] = 0
+R23 [s7] = 0
+R24 [t8] = 0
+R25 [t9] = 0
+R26 [k0] = 0
+R27 [k1] = 0
+R28 [gp] = 10008000
+R29 [sp] = 7ffffa70
+R30 [s8] = 0
+R31 [ra] = 4000a0
+
+
+User Text Segment [00400000]..[00440000]
+[00400000] 8fa40000  lw $4, 0($29)            ; 183: lw $a0 0($sp) # argc 
+[00400004] 27a50004  addiu $5, $29, 4         ; 184: addiu $a1 $sp 4 # argv 
+[00400008] 24a60004  addiu $6, $5, 4          ; 185: addiu $a2 $a1 4 # envp 
+[0040000c] 00041080  sll $2, $4, 2            ; 186: sll $v0 $a0 2 
+[00400010] 00c23021  addu $6, $6, $2          ; 187: addu $a2 $a2 $v0 
+[00400014] 0c100009  jal 0x00400024 [main]    ; 188: jal main 
+[00400018] 00000000  nop                      ; 189: nop 
+[0040001c] 3402000a  ori $2, $0, 10           ; 191: li $v0 10 
+[00400020] 0000000c  syscall                  ; 192: syscall # syscall 10 (exit) 
+[00400024] 34020004  ori $2, $0, 4            ; 16: li $v0, 4 #Print string 
+[00400028] 3c011001  lui $1, 4097 [Promptx1]  ; 17: la $a0, Promptx1 
+[0040002c] 34240008  ori $4, $1, 8 [Promptx1] 
+[00400030] 0000000c  syscall                  ; 18: syscall 
+[00400034] 34020007  ori $2, $0, 7            ; 19: li $v0, 7 #Read double 
+[00400038] 0000000c  syscall                  ; 20: syscall 
+[0040003c] 46200086  mov.d $f2, $f0           ; 21: mov.d $f2, $f0 #$f2:=x1 
+[00400040] 34020004  ori $2, $0, 4            ; 23: li $v0, 4 #Print string 
+[00400044] 3c011001  lui $1, 4097 [Prompty1]  ; 24: la $a0, Prompty1 
+[00400048] 3424000d  ori $4, $1, 13 [Prompty1] 
+[0040004c] 0000000c  syscall                  ; 25: syscall 
+[00400050] 34020007  ori $2, $0, 7            ; 26: li $v0, 7 #Read double 
+[00400054] 0000000c  syscall                  ; 27: syscall 
+[00400058] 46200106  mov.d $f4, $f0           ; 28: mov.d $f4, $f0 #$f4:=y1 
+[0040005c] 34020004  ori $2, $0, 4            ; 30: li $v0, 4 #Print string 
+[00400060] 3c011001  lui $1, 4097 [Promptx2]  ; 31: la $a0, Promptx2 
+[00400064] 34240012  ori $4, $1, 18 [Promptx2] 
+[00400068] 0000000c  syscall                  ; 32: syscall 
+[0040006c] 34020007  ori $2, $0, 7            ; 33: li $v0, 7 #Read double 
+[00400070] 0000000c  syscall                  ; 34: syscall 
+[00400074] 46200186  mov.d $f6, $f0           ; 35: mov.d $f6, $f0 #$f6:=x2 
+[00400078] 34020004  ori $2, $0, 4            ; 37: li $v0, 4 #Print string 
+[0040007c] 3c011001  lui $1, 4097 [Prompty2]  ; 38: la $a0, Prompty2 
+[00400080] 34240017  ori $4, $1, 23 [Prompty2] 
+[00400084] 0000000c  syscall                  ; 39: syscall 
+[00400088] 34020007  ori $2, $0, 7            ; 40: li $v0, 7 #Read double 
+[0040008c] 0000000c  syscall                  ; 41: syscall 
+[00400090] 46200206  mov.d $f8, $f0           ; 42: mov.d $f8, $f0 #$f8:=y2 
+[00400094] 0c10002a  jal 0x004000a8 [Circle]  ; 50: jal Circle 
+[00400098] 0c100037  jal 0x004000dc [Square]  ; 51: jal Square 
+[0040009c] 0c100041  jal 0x00400104 [Rectangle]; 52: jal Rectangle 
+[004000a0] 3402000a  ori $2, $0, 10           ; 55: li $v0, 10 
+[004000a4] 0000000c  syscall                  ; 56: syscall 
+[004000a8] 3c010040  lui $1, 64 [GetLength]   ; 59: la $s0, GetLength 
+[004000ac] 34300130  ori $16, $1, 304 [GetLength] 
+[004000b0] 02008809  jalr $17, $16            ; 60: jalr $s1, $s0 
+[004000b4] 3c011001  lui $1, 4097             ; 63: l.d $f14, PI #$f14 = PI 
+[004000b8] d42e0000  ldc1 $f14, 0($1)         
+[004000bc] 462e6302  mul.d $f12, $f12, $f14   ; 64: mul.d $f12, $f12, $f14 #$f12 = r^2 * PI 
+[004000c0] 34020004  ori $2, $0, 4            ; 67: li $v0, 4 
+[004000c4] 3c011001  lui $1, 4097 [AreaCircle]; 68: la $a0, AreaCircle 
+[004000c8] 3424001c  ori $4, $1, 28 [AreaCircle] 
+[004000cc] 0000000c  syscall                  ; 69: syscall 
+[004000d0] 34020003  ori $2, $0, 3            ; 70: li $v0, 3 
+[004000d4] 0000000c  syscall                  ; 71: syscall 
+[004000d8] 03e00008  jr $31                   ; 74: jr $ra 
+[004000dc] 3c010040  lui $1, 64 [GetLength]   ; 77: la $s0, GetLength 
+[004000e0] 34300130  ori $16, $1, 304 [GetLength] 
+[004000e4] 02008809  jalr $17, $16            ; 78: jalr $s1, $s0 
+[004000e8] 34020004  ori $2, $0, 4            ; 81: li $v0, 4 
+[004000ec] 3c011001  lui $1, 4097 [AreaSquare]; 82: la $a0, AreaSquare 
+[004000f0] 34240039  ori $4, $1, 57 [AreaSquare] 
+[004000f4] 0000000c  syscall                  ; 83: syscall 
+[004000f8] 34020003  ori $2, $0, 3            ; 84: li $v0 3 
+[004000fc] 0000000c  syscall                  ; 85: syscall 
+[00400100] 03e00008  jr $31                   ; 88: jr $ra 
+[00400104] 3c010040  lui $1, 64 [GetSides]    ; 91: la $s0, GetSides 
+[00400108] 34300148  ori $16, $1, 328 [GetSides] 
+[0040010c] 02008809  jalr $17, $16            ; 92: jalr $s1, $s0 
+[00400110] 462a6302  mul.d $f12, $f12, $f10   ; 94: mul.d $f12, $f12, $f10 
+[00400114] 34020004  ori $2, $0, 4            ; 97: li $v0, 4 
+[00400118] 3c011001  lui $1, 4097 [AreaRect]  ; 98: la $a0, AreaRect 
+[0040011c] 34240056  ori $4, $1, 86 [AreaRect] 
+[00400120] 0000000c  syscall                  ; 99: syscall 
+[00400124] 34020003  ori $2, $0, 3            ; 100: li $v0 3 
+[00400128] 0000000c  syscall                  ; 101: syscall 
+[0040012c] 03e00008  jr $31                   ; 104: jr $ra 
+[00400130] 46223281  sub.d $f10, $f6, $f2     ; 110: sub.d $f10, $f6, $f2 #$f10 = x2 - x1 
+[00400134] 462a5282  mul.d $f10, $f10, $f10   ; 111: mul.d $f10, $f10, $f10 #$f10 = (x2 - x1)^2 
+[00400138] 46244301  sub.d $f12, $f8, $f4     ; 113: sub.d $f12, $f8, $f4 #$f12 = y2 - y1 
+[0040013c] 462c6302  mul.d $f12, $f12, $f12   ; 114: mul.d $f12, $f12, $f12 #$f12 = (y2 - y1)^2 
+[00400140] 462c5300  add.d $f12, $f10, $f12   ; 116: add.d $f12, $f10, $f12 #$f14 = side squared; area of square 
+[00400144] 02200008  jr $17                   ; 117: jr $s1 
+[00400148] 46223281  sub.d $f10, $f6, $f2     ; 123: sub.d $f10, $f6, $f2 #$f10 = x2 - x1 
+[0040014c] 46244301  sub.d $f12, $f8, $f4     ; 124: sub.d $f12, $f8, $f4 #$f12 = y2 - y1 
+[00400150] 02200008  jr $17                   ; 125: jr $s1 
+
+Kernel Text Segment [80000000]..[80010000]
+[80000180] 0001d821  addu $27, $0, $1         ; 90: move $k1 $at # Save $at 
+[80000184] 3c019000  lui $1, -28672           ; 92: sw $v0 s1 # Not re-entrant and we can't trust $sp 
+[80000188] ac220200  sw $2, 512($1)           
+[8000018c] 3c019000  lui $1, -28672           ; 93: sw $a0 s2 # But we need to use these registers 
+[80000190] ac240204  sw $4, 516($1)           
+[80000194] 401a6800  mfc0 $26, $13            ; 95: mfc0 $k0 $13 # Cause register 
+[80000198] 001a2082  srl $4, $26, 2           ; 96: srl $a0 $k0 2 # Extract ExcCode Field 
+[8000019c] 3084001f  andi $4, $4, 31          ; 97: andi $a0 $a0 0x1f 
+[800001a0] 34020004  ori $2, $0, 4            ; 101: li $v0 4 # syscall 4 (print_str) 
+[800001a4] 3c049000  lui $4, -28672 [__m1_]   ; 102: la $a0 __m1_ 
+[800001a8] 0000000c  syscall                  ; 103: syscall 
+[800001ac] 34020001  ori $2, $0, 1            ; 105: li $v0 1 # syscall 1 (print_int) 
+[800001b0] 001a2082  srl $4, $26, 2           ; 106: srl $a0 $k0 2 # Extract ExcCode Field 
+[800001b4] 3084001f  andi $4, $4, 31          ; 107: andi $a0 $a0 0x1f 
+[800001b8] 0000000c  syscall                  ; 108: syscall 
+[800001bc] 34020004  ori $2, $0, 4            ; 110: li $v0 4 # syscall 4 (print_str) 
+[800001c0] 3344003c  andi $4, $26, 60         ; 111: andi $a0 $k0 0x3c 
+[800001c4] 3c019000  lui $1, -28672           ; 112: lw $a0 __excp($a0) 
+[800001c8] 00240821  addu $1, $1, $4          
+[800001cc] 8c240180  lw $4, 384($1)           
+[800001d0] 00000000  nop                      ; 113: nop 
+[800001d4] 0000000c  syscall                  ; 114: syscall 
+[800001d8] 34010018  ori $1, $0, 24           ; 116: bne $k0 0x18 ok_pc # Bad PC exception requires special checks 
+[800001dc] 143a0008  bne $1, $26, 32 [ok_pc-0x800001dc] 
+[800001e0] 00000000  nop                      ; 117: nop 
+[800001e4] 40047000  mfc0 $4, $14             ; 119: mfc0 $a0 $14 # EPC 
+[800001e8] 30840003  andi $4, $4, 3           ; 120: andi $a0 $a0 0x3 # Is EPC word-aligned? 
+[800001ec] 10040004  beq $0, $4, 16 [ok_pc-0x800001ec]
+[800001f0] 00000000  nop                      ; 122: nop 
+[800001f4] 3402000a  ori $2, $0, 10           ; 124: li $v0 10 # Exit on really bad PC 
+[800001f8] 0000000c  syscall                  ; 125: syscall 
+[800001fc] 34020004  ori $2, $0, 4            ; 128: li $v0 4 # syscall 4 (print_str) 
+[80000200] 3c019000  lui $1, -28672 [__m2_]   ; 129: la $a0 __m2_ 
+[80000204] 3424000d  ori $4, $1, 13 [__m2_]   
+[80000208] 0000000c  syscall                  ; 130: syscall 
+[8000020c] 001a2082  srl $4, $26, 2           ; 132: srl $a0 $k0 2 # Extract ExcCode Field 
+[80000210] 3084001f  andi $4, $4, 31          ; 133: andi $a0 $a0 0x1f 
+[80000214] 14040002  bne $0, $4, 8 [ret-0x80000214]; 134: bne $a0 0 ret # 0 means exception was an interrupt 
+[80000218] 00000000  nop                      ; 135: nop 
+[8000021c] 401a7000  mfc0 $26, $14            ; 145: mfc0 $k0 $14 # Bump EPC register 
+[80000220] 275a0004  addiu $26, $26, 4        ; 146: addiu $k0 $k0 4 # Skip faulting instruction 
+[80000224] 409a7000  mtc0 $26, $14            ; 148: mtc0 $k0 $14 
+[80000228] 3c019000  lui $1, -28672           ; 153: lw $v0 s1 # Restore other registers 
+[8000022c] 8c220200  lw $2, 512($1)           
+[80000230] 3c019000  lui $1, -28672           ; 154: lw $a0 s2 
+[80000234] 8c240204  lw $4, 516($1)           
+[80000238] 001b0821  addu $1, $0, $27         ; 157: move $at $k1 # Restore $at 
+[8000023c] 40806800  mtc0 $0, $13             ; 160: mtc0 $0 $13 # Clear Cause register 
+[80000240] 401a6000  mfc0 $26, $12            ; 162: mfc0 $k0 $12 # Set Status register 
+[80000244] 375a0001  ori $26, $26, 1          ; 163: ori $k0 0x1 # Interrupts enabled 
+[80000248] 409a6000  mtc0 $26, $12            ; 164: mtc0 $k0 $12 
+[8000024c] 42000018  eret                     ; 167: eret 
+
+
+User data segment [10000000]..[10040000]
+[10000000]..[1000ffff]  00000000
+[10010000]    2e48e8a7  400921ff  203a3178  3a317900    . . H . . ! . @ x 1 :   . y 1 : 
+[10010010]    32780020  7900203a  00203a32  6568540a      . x 2 :   . y 2 :   . . T h e 
+[10010020]    65726120  666f2061  65687420  72696320      a r e a   o f   t h e   c i r 
+[10010030]    20656c63  203a7369  68540a00  72612065    c l e   i s :   . . T h e   a r 
+[10010040]    6f206165  68742066  71732065  65726175    e a   o f   t h e   s q u a r e 
+[10010050]    3a736920  540a0020  61206568  20616572      i s :   . . T h e   a r e a   
+[10010060]    7420666f  72206568  61746365  656c676e    o f   t h e   r e c t a n g l e 
+[10010070]    3a736920  00000020  00000000  00000000      i s :   . . . . . . . . . . . 
+[10010080]..[1003ffff]  00000000
+
+
+User Stack [7ffffa70]..[80000000]
+[7ffffa70]    00000002  7ffffb38  7ffffb1a  00000000    . . . . 8 . . . . . . . . . . . 
+[7ffffa80]    7fffffea  7fffffd1  7fffff9f  7fffff95    . . . . . . . . . . . . . . . . 
+[7ffffa90]    7fffff86  7fffff71  7fffff5e  7fffff56    . . . . q . . . ^ . . . V . . . 
+[7ffffaa0]    7fffff46  7fffff2f  7ffffefb  7ffffee5    F . . . / . . . . . . . . . . . 
+[7ffffab0]    7ffffeaf  7ffffea2  7ffffe84  7ffffe6d    . . . . . . . . . . . . m . . . 
+[7ffffac0]    7ffffe5c  7ffffdf4  7ffffdd5  7ffffd9b    \ . . . . . . . . . . . . . . . 
+[7ffffad0]    7ffffd7e  7ffffd73  7ffffd62  7ffffd4a    ~ . . . s . . . b . . . J . . . 
+[7ffffae0]    7ffffd32  7ffffd10  7ffffce1  7ffffcd1    2 . . . . . . . . . . . . . . . 
+[7ffffaf0]    7ffffcbe  7ffffc8a  7ffffc7f  7ffffc70    . . . . . . . . . . . . p . . . 
+[7ffffb00]    7ffffc1d  7ffffbbf  7ffffbaa  7ffffb54    . . . . . . . . . . . . T . . . 
+[7ffffb10]    00000000  00000000  30320000  412f3931    . . . . . . . . . . 2 0 1 9 / A 
+[7ffffb20]    2f686372  3362614c  6168732f  64736570    r c h / L a b 3 / s h a p e s d 
+[7ffffb30]    6c62756f  00732e65  6d6f682f  6f6a2f65    o u b l e . s . / h o m e / j o 
+[7ffffb40]    442f6e68  6d75636f  73746e65  7270532f    h n / D o c u m e n t s / S p r 
+[7ffffb50]    00676e69  53534553  5f4e4f49  414e414d    i n g . S E S S I O N _ M A N A 
+[7ffffb60]    3d524547  61636f6c  724f2f6c  65676e61    G E R = l o c a l / O r a n g e 
+[7ffffb70]    403a5054  706d742f  43492e2f  6e752d45    T P : @ / t m p / . I C E - u n 
+[7ffffb80]    312f7869  2c313332  78696e75  61724f2f    i x / 1 2 3 1 , u n i x / O r a 
+[7ffffb90]    5465676e  742f3a50  2e2f706d  2d454349    n g e T P : / t m p / . I C E - 
+[7ffffba0]    78696e75  3332312f  444b0031  45535f45    u n i x / 1 2 3 1 . K D E _ S E 
+[7ffffbb0]    4f495353  49555f4e  30313d44  58003030    S S I O N _ U I D = 1 0 0 0 . X 
+[7ffffbc0]    435f4744  49464e4f  49445f47  2f3d5352    D G _ C O N F I G _ D I R S = / 
+[7ffffbd0]    2f637465  2f676478  2d676478  73616c70    e t c / x d g / x d g - p l a s 
+[7ffffbe0]    2f3a616d  2f637465  3a676478  7273752f    m a : / e t c / x d g : / u s r 
+[7ffffbf0]    6168732f  6b2f6572  6e756275  642d7574    / s h a r e / k u b u n t u - d 
+[7ffffc00]    75616665  732d746c  69747465  2f73676e    e f a u l t - s e t t i n g s / 
+[7ffffc10]    2d35666b  74746573  73676e69  47445800    k f 5 - s e t t i n g s . X D G 
+[7ffffc20]    5441445f  49445f41  2f3d5352  2f727375    _ D A T A _ D I R S = / u s r / 
+[7ffffc30]    72616873  6c702f65  616d7361  73752f3a    s h a r e / p l a s m a : / u s 
+[7ffffc40]    6f6c2f72  2f6c6163  72616873  752f3a65    r / l o c a l / s h a r e : / u 
+[7ffffc50]    732f7273  65726168  61762f3a  696c2f72    s r / s h a r e : / v a r / l i 
+[7ffffc60]    6e732f62  2f647061  6b736564  00706f74    b / s n a p d / d e s k t o p . 
+[7ffffc70]    3d445750  6d6f682f  6f6a2f65  58006e68    P W D = / h o m e / j o h n . X 
+[7ffffc80]    565f4744  3d524e54  50470031  47415f47    D G _ V T N R = 1 . G P G _ A G 
+[7ffffc90]    5f544e45  4f464e49  75722f3d  73752f6e    E N T _ I N F O = / r u n / u s 
+[7ffffca0]    312f7265  2f303030  70756e67  2e532f67    e r / 1 0 0 0 / g n u p g / S . 
+[7ffffcb0]    2d677067  6e656761  3a303a74  54510031    g p g - a g e n t : 0 : 1 . Q T 
+[7ffffcc0]    4343415f  49535345  494c4942  313d5954    _ A C C E S S I B I L I T Y = 1 
+[7ffffcd0]    45485300  2f3d4c4c  2f6e6962  68736162    . S H E L L = / b i n / b a s h 
+[7ffffce0]    48535300  5455415f  4f535f48  2f3d4b43    . S S H _ A U T H _ S O C K = / 
+[7ffffcf0]    2f706d74  2d687373  4452566e  707a576b    t m p / s s h - n V R D k W z p 
+[7ffffd00]    4f73714e  6567612f  312e746e  00353630    N q s O / a g e n t . 1 0 6 5 . 
+[7ffffd10]    54554158  49524f48  2f3d5954  656d6f68    X A U T H O R I T Y = / h o m e 
+[7ffffd20]    686f6a2f  582e2f6e  68747561  7469726f    / j o h n / . X a u t h o r i t 
+[7ffffd30]    44580079  45535f47  4f495353  45445f4e    y . X D G _ S E S S I O N _ D E 
+[7ffffd40]    4f544b53  444b3d50  44580045  55435f47    S K T O P = K D E . X D G _ C U 
+[7ffffd50]    4e455252  45445f54  4f544b53  444b3d50    R R E N T _ D E S K T O P = K D 
+[7ffffd60]    414c0045  653d474e  53555f6e  4654552e    E . L A N G = e n _ U S . U T F 
+[7ffffd70]    4400382d  4c505349  3a3d5941  43580030    - 8 . D I S P L A Y = : 0 . X C 
+[7ffffd80]    4f535255  48545f52  3d454d45  65657262    U R S O R _ T H E M E = b r e e 
+[7ffffd90]    635f657a  6f737275  58007372  535f4744    z e _ c u r s o r s . X D G _ S 
+[7ffffda0]    49535345  505f4e4f  3d485441  67726f2f    E S S I O N _ P A T H = / o r g 
+[7ffffdb0]    6572662f  73656465  706f746b  7369442f    / f r e e d e s k t o p / D i s 
+[7ffffdc0]    79616c70  616e614d  2f726567  73736553    p l a y M a n a g e r / S e s s 
+[7ffffdd0]    316e6f69  47445800  4e55525f  454d4954    i o n 1 . X D G _ R U N T I M E 
+[7ffffde0]    5249445f  75722f3d  73752f6e  312f7265    _ D I R = / r u n / u s e r / 1 
+[7ffffdf0]    00303030  48544150  73752f3d  6f6c2f72    0 0 0 . P A T H = / u s r / l o 
+[7ffffe00]    2f6c6163  6e696273  73752f3a  6f6c2f72    c a l / s b i n : / u s r / l o 
+[7ffffe10]    2f6c6163  3a6e6962  7273752f  6962732f    c a l / b i n : / u s r / s b i 
+[7ffffe20]    752f3a6e  622f7273  2f3a6e69  6e696273    n : / u s r / b i n : / s b i n 
+[7ffffe30]    69622f3a  752f3a6e  672f7273  73656d61    : / b i n : / u s r / g a m e s 
+[7ffffe40]    73752f3a  6f6c2f72  2f6c6163  656d6167    : / u s r / l o c a l / g a m e 
+[7ffffe50]    732f3a73  2f70616e  006e6962  5f474458    s : / s n a p / b i n . X D G _ 
+[7ffffe60]    53534553  5f4e4f49  333d4449  47445800    S E S S I O N _ I D = 3 . X D G 
+[7ffffe70]    5345535f  4e4f4953  414c435f  753d5353    _ S E S S I O N _ C L A S S = u 
+[7ffffe80]    00726573  415f5451  5f4f5455  45524353    s e r . Q T _ A U T O _ S C R E 
+[7ffffe90]    535f4e45  454c4143  4341465f  3d524f54    E N _ S C A L E _ F A C T O R = 
+[7ffffea0]    4f4c0030  4d414e47  6f6a3d45  44006e68    0 . L O G N A M E = j o h n . D 
+[7ffffeb0]    5f535542  53534553  5f4e4f49  5f535542    B U S _ S E S S I O N _ B U S _ 
+[7ffffec0]    52444441  3d535345  78696e75  7461703a    A D D R E S S = u n i x : p a t 
+[7ffffed0]    722f3d68  752f6e75  2f726573  30303031    h = / r u n / u s e r / 1 0 0 0 
+[7ffffee0]    7375622f  45444b00  5345535f  4e4f4953    / b u s . K D E _ S E S S I O N 
+[7ffffef0]    5245565f  4e4f4953  5800353d  535f4744    _ V E R S I O N = 5 . X D G _ S 
+[7fffff00]    5f544145  48544150  726f2f3d  72662f67    E A T _ P A T H = / o r g / f r 
+[7fffff10]    65646565  6f746b73  69442f70  616c7073    e e d e s k t o p / D i s p l a 
+[7fffff20]    6e614d79  72656761  6165532f  44003074    y M a n a g e r / S e a t 0 . D 
+[7fffff30]    544b5345  535f504f  49535345  703d4e4f    E S K T O P _ S E S S I O N = p 
+[7fffff40]    6d73616c  4f480061  2f3d454d  656d6f68    l a s m a . H O M E = / h o m e 
+[7fffff50]    686f6a2f  4853006e  3d4c564c  53530030    / j o h n . S H L V L = 0 . S S 
+[7fffff60]    47415f48  5f544e45  3d444950  33373131    H _ A G E N T _ P I D = 1 1 7 3 
+[7fffff70]    47445800  5345535f  4e4f4953  5059545f    . X D G _ S E S S I O N _ T Y P 
+[7fffff80]    31783d45  44580031  45535f47  733d5441    E = x 1 1 . X D G _ S E A T = s 
+[7fffff90]    30746165  45535500  6f6a3d52  50006e68    e a t 0 . U S E R = j o h n . P 
+[7fffffa0]    4b5f4d41  4c4c4157  5f355445  49474f4c    A M _ K W A L L E T 5 _ L O G I 
+[7fffffb0]    722f3d4e  752f6e75  2f726573  30303031    N = / r u n / u s e r / 1 0 0 0 
+[7fffffc0]    61776b2f  74656c6c  6f732e35  74656b63    / k w a l l e t 5 . s o c k e t 
+[7fffffd0]    5f534700  3d42494c  6d6f682f  6f6a2f65    . G S _ L I B = / h o m e / j o 
+[7fffffe0]    2e2f6e68  746e6f66  444b0073  55465f45    h n / . f o n t s . K D E _ F U 
+[7ffffff0]    535f4c4c  49535345  743d4e4f  00657572    L L _ S E S S I O N = t r u e . 
+
+
+Kernel data segment [90000000]..[90010000]
+[90000000]    78452020  74706563  206e6f69  636f2000        E x c e p t i o n   .   o c 
+[90000010]    72727563  61206465  6920646e  726f6e67    c u r r e d   a n d   i g n o r 
+[90000020]    000a6465  495b2020  7265746e  74707572    e d . .     [ I n t e r r u p t 
+[90000030]    2000205d  4c545b20  20005d42  4c545b20    ]   .     [ T L B ] .     [ T L 
+[90000040]    20005d42  4c545b20  20005d42  64415b20    B ] .     [ T L B ] .     [ A d 
+[90000050]    73657264  72652073  20726f72  69206e69    d r e s s   e r r o r   i n   i 
+[90000060]    2f74736e  61746164  74656620  205d6863    n s t / d a t a   f e t c h ]   
+[90000070]    5b202000  72646441  20737365  6f727265    .     [ A d d r e s s   e r r o 
+[90000080]    6e692072  6f747320  205d6572  5b202000    r   i n   s t o r e ]   .     [ 
+[90000090]    20646142  74736e69  74637572  206e6f69    B a d   i n s t r u c t i o n   
+[900000a0]    72646461  5d737365  20200020  6461425b    a d d r e s s ]   .     [ B a d 
+[900000b0]    74616420  64612061  73657264  00205d73      d a t a   a d d r e s s ]   . 
+[900000c0]    455b2020  726f7272  206e6920  63737973        [ E r r o r   i n   s y s c 
+[900000d0]    5d6c6c61  20200020  6572425b  6f706b61    a l l ]   .     [ B r e a k p o 
+[900000e0]    5d746e69  20200020  7365525b  65767265    i n t ]   .     [ R e s e r v e 
+[900000f0]    6e692064  75727473  6f697463  00205d6e    d   i n s t r u c t i o n ]   . 
+[90000100]    5b202000  74697241  74656d68  6f206369    .     [ A r i t h m e t i c   o 
+[90000110]    66726576  5d776f6c  20200020  6172545b    v e r f l o w ]   .     [ T r a 
+[90000120]    00205d70  5b202000  616f6c46  676e6974    p ]   . .     [ F l o a t i n g 
+[90000130]    696f7020  205d746e  20000000  6f435b20      p o i n t ]   . . .     [ C o 
+[90000140]    636f7270  005d3220  20000000  444d5b20    p r o c   2 ] . . . .     [ M D 
+[90000150]    005d584d  575b2020  68637461  2020005d    M X ] .     [ W a t c h ] .     
+[90000160]    63614d5b  656e6968  65686320  005d6b63    [ M a c h i n e   c h e c k ] . 
+[90000170]    00000000  5b202000  68636143  00005d65    . . . . .     [ C a c h e ] . . 
+[90000180]    90000024  90000033  9000003b  90000043    $ . . . 3 . . . ; . . . C . . . 
+[90000190]    9000004b  90000071  9000008d  900000aa    K . . . q . . . . . . . . . . . 
+[900001a0]    900000c0  900000d6  900000e6  90000100    . . . . . . . . . . . . . . . . 
+[900001b0]    90000101  9000011a  90000124  90000125    . . . . . . . . $ . . . % . . . 
+[900001c0]    90000139  9000013a  9000013b  90000148    9 . . . : . . . ; . . . H . . . 
+[900001d0]    90000149  9000014a  9000014b  90000154    I . . . J . . . K . . . T . . . 
+[900001e0]    9000015e  90000170  90000171  90000172    ^ . . . p . . . q . . . r . . . 
+[900001f0]    90000173  90000174  90000175  9000017f    s . . . t . . . u . . . . . . . 
+[90000200]..[9000ffff]  00000000
+
+
+x1: 3
+y1: 5
+x2: 7
+y2: 9
+
+The area of the circle is: 100.531199999999998
+The area of the square is: 32
+The area of the rectangle is: 16
