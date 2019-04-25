@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-enum Consts{BUFFER_SIZE = 4096};
+enum Consts{BUFF_SMALL = 128, BUFF_LARGE = 4096};
 
 //[output file] [letter text] [Recipients]
 
@@ -19,7 +19,7 @@ char* replaceAll(char* src, char* find, char* replace){
     int srci=0,tmpi=0; //src index, tmp index
     int cursor;  //Cursor walks thru src to compare it to the find string
 
-    char* tmp = (char*)malloc(BUFFER_SIZE);
+    char* tmp = (char*)malloc(BUFF_LARGE);
     for(; src[srci] != '\0' ; srci++){
 
     	//At every character, check to see if it equals the corresponding character in the find string.
@@ -36,63 +36,54 @@ char* replaceAll(char* src, char* find, char* replace){
     }
     //After the replacements, add the strig delim to the end
     tmp[tmpi]='\0';
-    //String delim is caught by strcpy, so we put it into a new string bounded by the terminal index to not waste space
-    char* out = strcpy( (char*)malloc(sizeof(char)*tmpi), tmp);
+    src = strcpy(src, tmp);
     free(tmp);
-    return out;
 }
-/*
-struct Recip{
-    char* Fullname;
-    char* Firstname;
-    char* Lastname;
-    char* Address;
-    char* Locale;
-};
-*/
-enum Recip{fullname, firstname, lastname, address, locale};
-void parsefiles(int arc, char *argv[]){
-    FILE *out         = fopen(argv[0], "a+");
-    FILE *letter      = fopen(argv[1], "r");
-    FILE *recipients  = fopen(argv[2], "r");
-    //struct Recip recipient;
-    char** recip = malloc(BUFFER_SIZE * sizeof(char*));
-    char* buff = (char*)malloc(sizeof(char)*BUFFER_SIZE);
+
+void parsefiles(char* argv[]){
+    FILE *out         = fopen(argv[1], "a+");
+	FILE *letter      = fopen(argv[2], "r");
+	FILE *recipients  = fopen(argv[3], "r");
+	/*
+	remove("out"); 								//debug
+    FILE *out 		= fopen("out", "a+");		//
+    FILE *letter 	= fopen("letter", "r");		//
+    FILE *recipients = fopen("recipients", "r");//
+	/**/
+
+    char recip[5][BUFF_SMALL];
+    char delims[4][4] = {"#N#","#F#","#L#","#A#"};
+
+    char* buff  = (char*)malloc(sizeof(char)*BUFF_LARGE);
+    char* buff2 = (char*)malloc(sizeof(char)*BUFF_LARGE);
+
     int i;
+    int len;
 
-    while(fgets(buff, 80, recipients) != NULL){
-        if(strcmp(buff, "\n") == 0) continue; //Skip blank line
-        for(i = 0; i < 5; i++){
-        	strcpy(recip[i], buff);
-        	fgets(buff, 100, recipients);
-        }fullname
-		//Now we have a populated recipient struct
-        /*
-        strcpy(recip[fullname], buff);
-        fgets(buff, 100, recipients);
-        strcpy(recip[firstname], buff);
-        fgets(buff, 100, recipients);
-        strcpy(recip[lastname], buff);
-        fgets(buff, 100, recipients);
-        strcpy(recip[address], buff);
-        fgets(buff, 100, recipients);
-        strcpy(recip[locale], buff);
-        */
-
-        while(fgets(buff, 4096, letter) != NULL){
-			//  #N# = full name of recipient
-			//  #F# = First name of recipient
-			//  #L# = Last name of recipient
-			//  #A# = address of recipient
-			buff = replaceAll(buff, "#N#", recip[fullname]);
-			buff = replaceAll(buff, "#F#", recip[firstname]);
-			buff = replaceAll(buff, "#L#", recip[lastname]);
-			buff = replaceAll(buff, "#A#", recip[address]);
-			printf("%s", buff);
+    //Reads through each recipient entry
+    while(fgets(buff, BUFF_SMALL, recipients) != NULL){
+    	//Evaluate recipient
+        for(i = 0; i < 5; i++){				//Iterate through recipient entry
+        	strcpy(recip[i], buff);			//Store value in corresponding section of recipient array
+        	len = (int)strlen(recip[i]);	//Store length of string
+        	if (recip[i][len-1] == '\n')
+        		recip[i][len-1] = '\0';		//Replace newline with string delim
+        	fgets(buff, BUFF_SMALL, recipients);
         }
-    }
 
-    printf()
+        //Substitute delimiters
+        while(fgets(buff2, 2048, letter) != NULL){	//Iterate over every ling of letter
+        	for(i = 0; i < 4; i++) 	//For each recipient value:
+        		replaceAll(buff2, delims[i], recip[i]); //Parse the current line and replace delimiters
+			//printf("||\t%s", buff2); //debug
+			fprintf(out, "%s", buff2);
+        }
+        fprintf(out, "\n");
+		rewind(letter); //Reset letter for next recipient
+    }
+    //Don't destroy the system (thanks, C):
+	free(buff);
+    free(buff2);
 
     fclose(out);
     fclose(letter);
@@ -108,19 +99,14 @@ int main(int argc, char *argv[]) {
     //  #F# = First name of recipient
     //  #L# = Last name of recipient
     //  Delimiters can appear any number of times in letter
-    /*
-    if(argc != 3){
-        printf("ERR: Incorrect number of arugments");
+
+    ///*
+    if(argc != 4){
+        printf("ERR: Incorrect number of arugments: %d\n", argc);
         exit(1);
     }
-	*/
-    parsefiles(argc, argv);
+	/**/
+    parsefiles(argv);
 
-
-    char* src = "Lorem Ipsum Dolor Sit Amet";
-    char* find = "o";
-    char* replace = "FUCK";
-    char* test = replaceAll(src, find, replace);
-    printf("%s", test);
     return 0;
 }
